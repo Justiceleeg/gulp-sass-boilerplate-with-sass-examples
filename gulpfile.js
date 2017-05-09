@@ -8,12 +8,6 @@ const paths = {
     sassSource: ['public/styles/**/*.*']
 }
 
-gulp.task('js', function(){
-    gulp.src(paths.jsSource)
-    .pipe(concat('bundle.js'))
-    .pipe(gulp.dest('./dist'))
-})
-
 gulp.task('sass', function(){
     gulp.src(paths.sassSource)
     .pipe(sass())
@@ -22,17 +16,17 @@ gulp.task('sass', function(){
 })
 
 gulp.task('es6', function(){
-    gulp.src(['./js/app.js', './js/**/*.js'])
+    gulp.src(paths.jsSource)
     .pipe(babel({ 
         presets: ['es2015'] 
     }))
+    .pipe(concat('bundle.js'))
     .pipe(gulp.dest('./dist'))
 })
 
-gulp.task('build',['js','es6','sass']);
+gulp.task('build',['es6','sass']);
 
 gulp.task('watch', function(){
-    gulp.watch(paths.jsSource, ['js']);
     gulp.watch(paths.jsSource, ['es6']);
     gulp.watch(paths.sassSource, ['sass']);
 })
