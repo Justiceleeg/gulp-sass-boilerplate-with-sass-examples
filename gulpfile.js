@@ -29,7 +29,7 @@ gulp.task('es6', function(){
     .pipe(gulp.dest('./dist'))
 })
 
-gulp.task('build',['js','sass']);
+gulp.task('build',['js','es6','sass']);
 
 gulp.task('watch', function(){
     gulp.watch(paths.jsSource, ['js']);
