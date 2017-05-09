@@ -1,0 +1,116 @@
+@import reset-partial
+
+// Variables~                                          
+//  use the $ symbol to make something a variable.     
+//  especially useful if you have colors you want      
+//  to use throughout your app for consistency         
+
+//  $main-font-color is the variable, the color purple 
+//  is stored inside of that to be re-used             
+
+$main-font-color: #b1ecef
+
+//  You can make that variable the value of a property 
+
+html
+    background-color: $main-font-color
+
+// Nesting~                                            
+//  you can nest your css similar to how html is nested
+//  overly nested css will be hard to maintain and is  
+//  bad practice                                       
+
+nav
+    ul
+        margin: 0
+        padding: 5px
+
+    a
+        display: block
+        text-decoration: none
+        color: white
+        font-size: 50px
+        width: 10vw
+
+// Partials~                                           
+//  partials are sass files that can be imported into  
+//  other sass files.                                  
+//  must be name with a preluding underscore           
+//  ex: _reset-partial.sass                            
+
+// Import~                                             
+//  import allows you to use your partial and import it
+//  into your code, kind of like directives in angular.
+//  this allows you to have smaller, more maintainable 
+//  code.                                              
+//  the @import file is at the top since the reset     
+//  should be loaded first                             
+//  NOTE: every time you use @import in css it makes   
+//  another http request. instead of requiring an http 
+//  request, sass takes the file you want to import and
+//  combines it with the bundle.css  to serve a single 
+//  css file to the web browser.                       
+
+// Mixins                                             
+//  make groups of CSS declarations to reuse in your app
+//  in scss instead of = it's @mixin
+
+=width-height
+    width: 150px
+    height: 150px
+
+=border-radius($radius)         //passing in something through $radius
+  -webkit-border-radius: $radius
+  -moz-border-radius:    $radius
+  -ms-border-radius:     $radius
+  border-radius:         $radius
+
+.boxes
+    .box
+        +width-height           //  in scss instead of + it's @include
+        +border-radius(100px)  
+        background-color: white
+    display: flex
+    flex-direction: row
+
+// Extend/Inheritance~
+//  lets you share a set of css properties from
+//  one selector to another so you don't  have to
+//  write multiple classes in html elements
+
+.buttons
+    .btn
+        width: 100px
+        height: 50px
+        margin: 15px
+    display: flex
+    flex-direction: column
+.red
+    @extend .btn
+    background-color: red
+.yellow
+    @extend .btn
+    background-color: yellow
+.green
+    @extend .btn
+    background-color: green
+
+// Operators~
+//  allows you to do math in your css using standard
+//  math Operators
+
+.sec-aside-container
+    width: 50vw
+    height: 250px
+    background-color: white
+    margin-left: 25vw
+    display: flex
+    flex-direction: row
+    section
+        width: 13px/33px * 100%
+        height: 250px
+        background-color: black
+    aside   
+        width: 20px/33px * 100%
+        height: 250px
+        background-color: grey
